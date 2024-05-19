@@ -1,5 +1,15 @@
 FROM php:8.1-fpm
 
+# Copy custom php.ini
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# install Node.js
+COPY --from=node:lts /usr/local/bin /usr/local/bin
+COPY --from=node:lts /usr/local/lib /usr/local/lib
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -24,22 +34,6 @@ RUN apt-get update && apt-get install -y \
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-# Copy custom php.ini
-COPY docker/php/php.ini /usr/local/etc/php/php.ini
-
-# Install Node.js, npm, nvm
-RUN apt-get update && \
-    apt-get -y install curl && \
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
-    export NVM_DIR="$HOME/.nvm" && \
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
-    nvm install node && \
-    apt-get purge -y --auto-remove curl && \
-    rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /var/www

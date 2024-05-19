@@ -51,20 +51,20 @@ migrate-fresh-seed:
 
 # npm and TailwindCSS setup commands
 npm-install:
-	docker-compose run --rm app npm install
+	docker-compose run app npm install
 
 vue-setup:
-	docker-compose run --rm app npm install vue@next vue-loader@next @vue/compiler-sfc typescript --save-dev
+	docker-compose run app npm install vue@latest vue-loader@latest @vue/compiler-sfc typescript --save-dev
 
 tailwind-setup:
-	docker-compose run --rm app npm install tailwindcss postcss autoprefixer --save-dev
-	docker-compose run --rm app npx tailwindcss init -p
+	docker-compose run app npm install tailwindcss postcss autoprefixer --save-dev
+	docker-compose run app npx tailwindcss init -p
 
 # Combined npm setup
 npm-setup: npm-install vue-setup tailwind-setup
 
 # Combined setup command
-setup: clean build-no-cache up create-laravel composer-install artisan-key npm-setup storage-link permissions migrate-fresh-seed
+setup: clean build-no-cache up create-laravel composer-install artisan-key npm-setup storage-link permissions
 
 # Development commands
 npm-dev:

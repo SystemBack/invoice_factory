@@ -28,7 +28,7 @@ clear-nginx-logs:
 
 # Laravel setup commands
 create-laravel:
-	docker-compose run --rm app composer create-project --prefer-dist "laravel/laravel=10.*" .
+	docker-compose run app composer create-project --prefer-dist "laravel/laravel=10.*" .
 
 # Laravel commands
 composer-install:
@@ -64,7 +64,7 @@ tailwind-setup:
 npm-setup: npm-install vue-setup tailwind-setup
 
 # Combined setup command
-setup: clean build-no-cache up create-laravel composer-install artisan-key migrate npm-setup storage-link permissions migrate-fresh-seed
+setup: clean build-no-cache up create-laravel composer-install artisan-key npm-setup storage-link permissions migrate-fresh-seed
 
 # Development commands
 npm-dev:

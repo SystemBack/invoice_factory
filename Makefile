@@ -28,7 +28,7 @@ clear-nginx-logs:
 
 # Laravel setup commands
 create-laravel:
-	docker-compose run app composer create-project --prefer-dist "laravel/laravel=10.*" .
+	docker-compose run --rm app sh -c 'find /var/www -mindepth 1 -delete && composer create-project --prefer-dist "laravel/laravel=10.*" .'
 
 # Laravel commands
 composer-install:
@@ -51,14 +51,14 @@ migrate-fresh-seed:
 
 # npm and TailwindCSS setup commands
 npm-install:
-	docker-compose run app npm install
+	docker-compose run --rm app npm install
 
 vue-setup:
-	docker-compose run app npm install vue@latest vue-loader@latest @vue/compiler-sfc typescript --save-dev
+	docker-compose run --rm app npm install vue@latest vue-loader@latest @vue/compiler-sfc typescript --save-dev
 
 tailwind-setup:
-	docker-compose run app npm install tailwindcss postcss autoprefixer --save-dev
-	docker-compose run app npx tailwindcss init -p
+	docker-compose run --rm app npm install tailwindcss postcss autoprefixer --save-dev
+	docker-compose run --rm app npx tailwindcss init -p
 
 # Combined npm setup
 npm-setup: npm-install vue-setup tailwind-setup

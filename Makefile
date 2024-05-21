@@ -1,3 +1,5 @@
+include .env
+
 # Docker Compose commands
 up:
 	docker-compose up -d
@@ -23,7 +25,7 @@ nginx-logs:
 
 # Database command
 db-connect:
-	docker-compose exec mysql bash -c 'mysql -u $$DB_USERNAME -p$$DB_PASSWORD $$DB_DATABASE'
+	docker-compose exec mysql sh -c "mysql -u $(DB_USERNAME) -p$(DB_PASSWORD) $(DB_DATABASE)"
 
 # Clear logs command
 clear-nginx-logs:

@@ -17,6 +17,10 @@ app:
 build-no-cache:
 	docker-compose build --no-cache --force-rm
 
+# Nginx logs command
+nginx-logs:
+	docker-compose logs nginx
+
 # Database command
 db-connect:
 	docker-compose exec mysql bash -c 'mysql -u $$DB_USERNAME -p$$DB_PASSWORD $$DB_DATABASE'

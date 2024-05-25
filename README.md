@@ -40,6 +40,11 @@ This repository provides a Docker-based development environment for Laravel. It 
     ```sh
     make setup
     ```
+4. Start Development Environment:  
+
+    ```sh
+    make npm-dev
+    ```
 
 This will build the Docker containers, install Laravel in the `src` directory, and set up all necessary dependencies.
 
